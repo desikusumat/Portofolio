@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio – Desi Kusuma Thamrin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           CSS VARIABLES – Light & Dark Mode
+        ═══════════════════════════════════════════ */
+        :root {
+            --primary:       #0077b5;
+            --primary-dark:  #005885;
+            --primary-light: #e8f4fb;
+            --accent:        #00a0dc;
+
+            --bg-page:       #f0f4f8;
+            --bg-card:       #ffffff;
+            --bg-sidebar:    #f7fafc;
+            --bg-badge:      #eef2f7;
+            --bg-header:     linear-gradient(135deg, #0077b5 0%, #004182 100%);
+
+            --text-primary:  #1a202c;
+            --text-secondary:#4a5568;
+            --text-muted:    #718096;
+            --text-inverse:  #ffffff;
+
+            --border:        #e2e8f0;
+            --border-light:  #f0f4f8;
+
+            --shadow-sm:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+            --shadow-md:     0 4px 16px rgba(0,0,0,.10);
+            --shadow-lg:     0 10px 30px rgba(0,0,0,.12);
+            --shadow-card:   0 2px 8px rgba(0,0,0,.06);
+
+            --radius:        12px;
+            --radius-sm:     8px;
+            --radius-xs:     6px;
+            --transition:    0.25s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary:       #38b2e8;
+            --primary-dark:  #0077b5;
+            --primary-light: #1a2e3d;
+            --accent:        #63d3fa;
+
+            --bg-page:       #0f1923;
+            --bg-card:       #1a2535;
+            --bg-sidebar:    #141f2e;
+            --bg-badge:      #1e2d40;
+            --bg-header:     linear-gradient(135deg, #0d3a5c 0%, #091e35 100%);
+
+            --text-primary:  #e2e8f0;
+            --text-secondary:#a0aec0;
+            --text-muted:    #718096;
+            --text-inverse:  #ffffff;
+
+            --border:        #2d3f55;
+            --border-light:  #1e2d40;
+
+            --shadow-sm:     0 1px 3px rgba(0,0,0,.3);
+            --shadow-md:     0 4px 16px rgba(0,0,0,.4);
+            --shadow-lg:     0 10px 30px rgba(0,0,0,.5);
+            --shadow-card:   0 2px 8px rgba(0,0,0,.3);
+        }
+
+        /* ═══════════════════════════════════════════
+           RESET & BASE
+        ═══════════════════════════════════════════ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color var(--transition), color var(--transition);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity var(--transition);
+        }
+        a:hover { opacity: 0.8; }
+
+        /* ═══════════════════════════════════════════
+           DARK MODE TOGGLE (Floating)
+        ═══════════════════════════════════════════ */
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: var(--bg-card);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+        }
+        #theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ═══════════════════════════════════════════
+           LAYOUT
+        ═══════════════════════════════════════════ */
+        .wrapper {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 30px 16px 60px;
+        }
+
+        /* ═══════════════════════════════════════════
+           HEADER CARD
+        ═══════════════════════════════════════════ */
+        .header-card {
+            background: var(--bg-header);
+            border-radius: var(--radius);
+            padding: 48px 40px 36px;
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 220px; height: 220px;
+            background: rgba(255,255,255,.05);
+            border-radius: 50%;
+        }
+        .header-card::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; left: -40px;
+            width: 280px; height: 280px;
+            background: rgba(255,255,255,.04);
+            border-radius: 50%;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.2);
+            border: 3px solid rgba(255,255,255,.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            flex-shrink: 0;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #fff;
+        }
+
+        .header-text h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .header-text h2 {
+            font-size: 1.05rem;
+            font-weight: 400;
+            opacity: .85;
+            margin-bottom: 18px;
+        }
+
+        .contact-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.2);
+            color: #fff;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: .82rem;
+            font-weight: 500;
+            transition: background var(--transition);
+        }
+        .chip:hover {
+            background: rgba(255,255,255,.28);
+            opacity: 1;
+        }
+        .chip .icon { font-size: .9rem; }
+
+        .chip-download {
+            background: rgba(255,255,255,.9);
+            color: #0077b5 !important;
+            font-weight: 700;
+            border-color: rgba(255,255,255,.95);
+        }
+        .chip-download:hover {
+            background: #ffffff;
+            opacity: 1;
+        }
+
+        /* ═══════════════════════════════════════════
+           SECTION CARD
+        ═══════════════════════════════════════════ */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 32px 36px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border);
+            transition: background var(--transition), border-color var(--transition);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-light);
+        }
+        .section-title .icon {
+            font-size: 1.2rem;
+            opacity: .85;
+        }
+
+        /* ═══════════════════════════════════════════
+           SUMMARY
+        ═══════════════════════════════════════════ */
+        .summary-text {
+            color: var(--text-secondary);
+            font-size: .95rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* ═══════════════════════════════════════════
+           TIMELINE – Experience
+        ═══════════════════════════════════════════ */
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px; top: 6px; bottom: 6px;
+            width: 2px;
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 28px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid var(--bg-card);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .timeline-item.current::before {
+            background: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent), 0 0 8px rgba(0,160,220,.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 2px var(--accent), 0 0 8px rgba(0,160,220,.4); }
+            50%       { box-shadow: 0 0 0 4px var(--accent), 0 0 16px rgba(0,160,220,.6); }
+        }
+
+        .tl-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+
+        .tl-role {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .tl-date {
+            font-size: .78rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 12px;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .tl-company {
+            font-size: .88rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .tl-location {
+            font-size: .78rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .tl-bullets {
+            list-style: none;
+            padding: 0;
+        }
+        .tl-bullets li {
+            position: relative;
+            padding-left: 16px;
+            font-size: .875rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+        .tl-bullets li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: .7rem;
+            top: 3px;
+        }
+
+        /* ═══════════════════════════════════════════
+           PROJECT CARDS
+        ═══════════════════════════════════════════ */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .project-card {
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 22px;
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .project-tag {
+            display: inline-block;
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .project-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .project-company {
+            font-size: .8rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .project-period {
+            font-size: .75rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .project-desc {
+            font-size: .84rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 14px;
+        }
+
+        .project-bullets {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 14px;
+        }
+        .project-bullets li {
+            font-size: .82rem;
+            color: var(--text-secondary);
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        .project-bullets li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #38a169;
+            font-size: .75rem;
+            top: 1px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tech-tag {
+            font-size: .72rem;
+            background: var(--bg-badge);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* ═══════════════════════════════════════════
+           SKILLS GRID
+        ═══════════════════════════════════════════ */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .skill-group-title {
+            font-size: .8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .badge {
+            background: var(--bg-badge);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: var(--radius-xs);
+            font-size: .83rem;
+            font-weight: 500;
+            transition: background var(--transition), color var(--transition);
+        }
+        .badge:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .badge.qa {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: rgba(0,119,181,.2);
+            font-weight: 600;
+        }
+
+        /* ═══════════════════════════════════════════
+           EDUCATION
+        ═══════════════════════════════════════════ */
+        .edu-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .edu-icon {
+            font-size: 1.8rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-light);
+            border-radius: var(--radius-xs);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .edu-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .edu-degree {
+            font-size: .88rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin: 2px 0;
+        }
+        .edu-year {
+            font-size: .8rem;
+            color: var(--text-muted);
+        }
+
+        /* ═══════════════════════════════════════════
+           CERTIFICATIONS
+        ═══════════════════════════════════════════ */
+        .cert-list {
+            list-style: none;
+            padding: 0;
+        }
+        .cert-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-light);
+            font-size: .88rem;
+            color: var(--text-secondary);
+        }
+        .cert-list li:last-child { border-bottom: none; }
+        .cert-icon {
+            font-size: .9rem;
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ═══════════════════════════════════════════
+           AWARD BANNER
+        ═══════════════════════════════════════════ */
+        .award-banner {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(135deg, #f6e05e22, #ed8936, #f6e05e22);
+            background: linear-gradient(135deg, rgba(246,224,94,.15), rgba(237,137,54,.12));
+            border: 1px solid rgba(237,137,54,.3);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+        }
+        .award-emoji { font-size: 1.8rem; }
+        .award-title {
+            font-weight: 700;
+            font-size: .95rem;
+            color: #c05621;
+        }
+        [data-theme="dark"] .award-title { color: #f6ad55; }
+        .award-sub {
+            font-size: .8rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ═══════════════════════════════════════════
+           TWO-COLUMN LAYOUT
+        ═══════════════════════════════════════════ */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .two-col .card { margin-bottom: 0; }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════════════ */
+        .footer {
+            text-align: center;
+            padding: 24px;
+            font-size: .82rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-top: 8px;
+        }
+
+        /* ═══════════════════════════════════════════
+           RESPONSIVE
+        ═══════════════════════════════════════════ */
+        @media (max-width: 720px) {
+            .wrapper { padding: 16px 12px 48px; }
+            .header-card { padding: 32px 20px 28px; }
+            .header-inner { flex-direction: column; text-align: center; gap: 16px; }
+            .header-text h1 { font-size: 1.5rem; }
+            .contact-chips { justify-content: center; }
+            .card { padding: 24px 18px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .two-col { grid-template-columns: 1fr; }
+            #theme-toggle { top: 12px; right: 12px; }
+        }
+
+        /* ═══════════════════════════════════════════
+           PRINT / PDF – SINGLE PAGE A4
+        ═══════════════════════════════════════════ */
+        @media print {
+            :root {
+                --primary:        #0077b5;
+                --primary-dark:   #005885;
+                --primary-light:  #ddeef8;
+                --bg-page:        #ffffff;
+                --bg-card:        #ffffff;
+                --bg-sidebar:     #f7fafc;
+                --bg-badge:       #eef2f7;
+                --text-primary:   #1a202c;
+                --text-secondary: #4a5568;
+                --text-muted:     #718096;
+                --border:         #e2e8f0;
+                --border-light:   #f0f4f8;
+                --shadow-sm: none; --shadow-md: none;
+                --shadow-lg: none; --shadow-card: none;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 7mm 8mm 7mm 8mm;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                box-shadow: none !important;
+            }
+
+            html, body {
+                background: #ffffff !important;
+                font-size: 7.2pt;
+                line-height: 1.4;
+            }
+
+            /* Hide interactive / decorative */
+            #theme-toggle,
+            .chip-download,
+            .footer { display: none !important; }
+
+            .wrapper { max-width: 100%; padding: 0; }
+
+            /* ── HEADER ── */
+            .header-card {
+                background: linear-gradient(135deg, #0077b5 0%, #004182 100%) !important;
+                border-radius: 5px;
+                padding: 10px 14px;
+                margin-bottom: 5px;
+            }
+            .header-inner { gap: 12px; align-items: center; }
+            .avatar { width: 48px; height: 48px; font-size: 1.1rem; border-width: 2px; }
+            .header-text h1 { font-size: 1rem; margin-bottom: 1px; }
+            .header-text h2 { font-size: .7rem; margin-bottom: 6px; }
+            .contact-chips { gap: 5px; }
+            .chip { font-size: .62rem; padding: 2px 7px; }
+
+            /* ── CARDS ── */
+            .card {
+                border-radius: 4px;
+                padding: 7px 10px;
+                margin-bottom: 5px;
+                border: 1px solid #e2e8f0;
+                page-break-inside: avoid;
+            }
+
+            .section-title {
+                font-size: .75rem;
+                margin-bottom: 6px;
+                padding-bottom: 4px;
+                border-bottom-width: 1px;
+            }
+            .section-title .icon { font-size: .7rem; }
+
+            /* ── SUMMARY ── */
+            .summary-text { font-size: .68rem; line-height: 1.45; }
+
+            /* ── TIMELINE ── */
+            .timeline { padding-left: 14px; }
+            .timeline::before { left: 4px; }
+            .timeline-item { margin-bottom: 6px; }
+            .timeline-item::before { left: -13px; top: 4px; width: 8px; height: 8px; }
+            .timeline-item.current::before { animation: none !important; }
+            .tl-header { gap: 6px; margin-bottom: 1px; }
+            .tl-role { font-size: .72rem; }
+            .tl-date { font-size: .6rem; padding: 1px 6px; }
+            .tl-company { font-size: .65rem; margin-bottom: 1px; }
+            .tl-location { font-size: .6rem; margin-bottom: 4px; }
+            .tl-bullets { }
+            .tl-bullets li { font-size: .63rem; margin-bottom: 2px; padding-left: 10px; line-height: 1.35; }
+            .tl-bullets li::before { font-size: .55rem; top: 2px; }
+
+            /* ── PROJECTS ── */
+            .projects-grid { grid-template-columns: 1fr 1fr; gap: 5px; }
+            .project-card { padding: 7px 9px; border-radius: 4px; }
+            .project-card::before { height: 2px; }
+            .project-tag { font-size: .58rem; padding: 1px 5px; margin-bottom: 4px; }
+            .project-name { font-size: .7rem; margin-bottom: 3px; }
+            .project-company { font-size: .62rem; margin-bottom: 1px; }
+            .project-period { font-size: .6rem; margin-bottom: 5px; }
+            .project-desc { font-size: .62rem; margin-bottom: 5px; line-height: 1.35; }
+            .project-bullets li { font-size: .6rem; margin-bottom: 2px; padding-left: 10px; line-height: 1.3; }
+            .project-bullets li::before { font-size: .58rem; top: 1px; }
+            .tech-stack { gap: 3px; }
+            .tech-tag { font-size: .58rem; padding: 1px 5px; }
+
+            /* ── SKILLS ── */
+            .skills-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .skill-group-title { font-size: .62rem; margin-bottom: 5px; }
+            .badge-group { gap: 4px; }
+            .badge { font-size: .62rem; padding: 3px 7px; }
+
+            /* ── EDUCATION + AWARD ── */
+            .two-col { grid-template-columns: 1fr 1fr; gap: 5px; }
+            .two-col .card { margin-bottom: 0; }
+            .edu-icon { width: 32px; height: 32px; font-size: 1rem; }
+            .edu-item { gap: 8px; }
+            .edu-name { font-size: .7rem; }
+            .edu-degree { font-size: .63rem; }
+            .edu-year { font-size: .6rem; }
+            .award-banner { padding: 8px 10px; gap: 8px; }
+            .award-emoji { font-size: 1.1rem; }
+            .award-title { font-size: .7rem; }
+            .award-sub { font-size: .6rem; }
+
+            /* ── CERTS ── */
+            .cert-list li { font-size: .63rem; padding: 4px 0; gap: 6px; }
+            .cert-icon { font-size: .7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dark/Light Mode Toggle -->
+    <button id="theme-toggle" title="Toggle dark/light mode" aria-label="Toggle dark/light mode">🌙</button>
+
+    <div class="wrapper">
+
+        <!-- ══════════ HEADER ══════════ -->
+        <header class="header-card">
+            <div class="header-inner">
+                <div class="avatar" aria-hidden="true">DK</div>
+                <div class="header-text">
+                    <h1>Desi Kusuma Thamrin</h1>
+                    <h2>Quality Assurance Test Lead · BRI</h2>
+                    <div class="contact-chips">
+                        <span class="chip"><span class="icon">📍</span> Jakarta Raya, Indonesia</span>
+                        <a class="chip" href="mailto:desikusumathamrin@gmail.com"><span class="icon">✉️</span> Email</a>
+                        <a class="chip" href="https://www.linkedin.com/in/desikusuma" target="_blank" rel="noopener"><span class="icon">💼</span> LinkedIn</a>
+                        <a class="chip" href="https://github.com/desikusumat" target="_blank" rel="noopener"><span class="icon">💻</span> GitHub</a>
+                        <a class="chip chip-download" href="#" onclick="window.print(); return false;" title="Download CV sebagai PDF"><span class="icon">⬇️</span> Download CV</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ══════════ RINGKASAN ══════════ -->
+        <div class="card">
+            <div class="section-title"><span class="icon">👤</span> Ringkasan Profesional</div>
+            <p class="summary-text">
+                Software Quality Assurance Tester dengan <strong>6+ tahun pengalaman</strong> memastikan kualitas, stabilitas, dan performa aplikasi digital skala enterprise. Mahir dalam merancang dan mengeksekusi test case, mengidentifikasi defect secara sistematis, serta berkolaborasi erat dengan tim pengembang dalam siklus SDLC. Berpengalaman dalam <em>end-to-end testing</em>, validasi fungsionalitas sistem, dan memimpin tim QA untuk menghadirkan produk yang andal dan ramah pengguna. Saat ini memimpin pengujian sistem perbankan di PT Bank Rakyat Indonesia (Persero) Tbk.
+            </p>
+        </div>
+
+        <!-- ══════════ PENGALAMAN KERJA ══════════ -->
+        <div class="card">
+            <div class="section-title"><span class="icon">💼</span> Pengalaman Kerja</div>
+            <div class="timeline">
+
+                <div class="timeline-item current">
+                    <div class="tl-header">
+                        <div class="tl-role">Quality Assurance Test Lead</div>
+                        <div class="tl-date">Jan 2026 – Sekarang</div>
+                    </div>
+                    <div class="tl-company">PT Bank Rakyat Indonesia (Persero) Tbk</div>
+                    <div class="tl-location">📍 Jakarta Raya, Indonesia · ~10 bulan</div>
+                    <ul class="tl-bullets">
+                        <li>Memimpin tim QA dalam pengujian sistem perbankan digital (core banking, mobile banking, internet banking).</li>
+                        <li>Menyusun strategi testing end-to-end meliputi functional, regression, integration, dan UAT testing.</li>
+                        <li>Berkoordinasi langsung dengan Product Owner dan Developer untuk memastikan setiap fitur memenuhi acceptance criteria.</li>
+                        <li>Membuat laporan eksekutif defect summary dan quality metrics untuk manajemen.</li>
+                        <li>Mentoring anggota tim QA junior dalam best practice pengujian perangkat lunak.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="tl-header">
+                        <div class="tl-role">Software Quality Assurance</div>
+                        <div class="tl-date">Jan 2023 – Des 2025</div>
+                    </div>
+                    <div class="tl-company">PT Bank Rakyat Indonesia (Persero) Tbk</div>
+                    <div class="tl-location">📍 Jakarta Raya, Indonesia · 3 tahun</div>
+                    <ul class="tl-bullets">
+                        <li>Merancang dan mengeksekusi test execution secara komprehensif pada fase SIT, UAT, dan Deployment Test untuk memastikan kesiapan sistem sebelum go-live.</li>
+                        <li>Mengidentifikasi, mendokumentasikan, dan menindaklanjuti defect secara sistematis menggunakan Jira dan Confluence sebagai platform kolaborasi tim.</li>
+                        <li>Berpartisipasi aktif dalam proses System Integration Testing (SIT) dan User Acceptance Testing (UAT) bersama klien guna memvalidasi kesesuaian sistem terhadap kebutuhan bisnis.</li>
+                        <li>Mengelola dan mengawal proses Deployment hingga fitur berhasil dirilis ke environment produksi dengan memastikan seluruh kriteria acceptance terpenuhi.</li>
+                        <li>Menyusun dokumentasi QA yang terstruktur meliputi Test Plan, Test Scenario, dan Test Summary Report sebagai acuan kualitas dan rekam jejak pengujian.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="tl-header">
+                        <div class="tl-role">Quality Assurance Test Coordinator</div>
+                        <div class="tl-date">Nov 2022 – Des 2022</div>
+                    </div>
+                    <div class="tl-company">PT Bank Mandiri (Persero) Tbk</div>
+                    <div class="tl-location">📍 Jakarta Raya, Indonesia · 2 bulan</div>
+                    <ul class="tl-bullets">
+                        <li>Mengkoordinasikan kegiatan testing antar tim untuk memastikan cakupan pengujian yang menyeluruh.</li>
+                        <li>Mereview test case yang dibuat oleh anggota tim QA dan memberikan feedback perbaikan.</li>
+                        <li>Menyusun laporan progres testing mingguan untuk stakeholder proyek.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="tl-header">
+                        <div class="tl-role">Quality Assurance Tester</div>
+                        <div class="tl-date">Jul 2020 – Nov 2022</div>
+                    </div>
+                    <div class="tl-company">PT Bank Mandiri (Persero) Tbk</div>
+                    <div class="tl-location">📍 Jakarta Raya, Indonesia · 2 tahun 5 bulan</div>
+                    <ul class="tl-bullets">
+                        <li>Melakukan functional testing, regression testing, dan smoke testing pada sistem informasi pemerintahan.</li>
+                        <li>Membuat test case dari dokumen BRD dan FSD dengan metode Boundary Value Analysis dan Equivalence Partitioning.</li>
+                        <li>Meraih penghargaan <strong>Defect Finder Champion</strong> atas kontribusi identifikasi bug kritis (Maret 2022).</li>
+                        <li>Berpartisipasi aktif dalam daily standup dan sprint review dalam kerangka kerja Agile/Scrum.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="tl-header">
+                        <div class="tl-role">Admin Support</div>
+                        <div class="tl-date">Jan 2020 – Mei 2020</div>
+                    </div>
+                    <div class="tl-company">PT FAS Indoraya</div>
+                    <div class="tl-location">📍 Jakarta Raya, Indonesia · 5 bulan</div>
+                    <ul class="tl-bullets">
+                        <li>Mengelola administrasi operasional dan mendukung kebutuhan dokumentasi tim.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="tl-header">
+                        <div class="tl-role">Staff IT</div>
+                        <div class="tl-date">Sep 2018 – Okt 2018</div>
+                    </div>
+                    <div class="tl-company">Kementerian Pemuda dan Olahraga RI</div>
+                    <div class="tl-location">📍 Jakarta Raya, Indonesia · 2 bulan</div>
+                    <ul class="tl-bullets">
+                        <li>Mendukung kegiatan IT operasional dan pemeliharaan sistem informasi internal kementerian.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ══════════ PROYEK ══════════ -->
+        <div class="card">
+            <div class="section-title"><span class="icon">🚀</span> Proyek Unggulan</div>
+            <div class="projects-grid">
+
+                <div class="project-card">
+                    <div class="project-tag">Banking · BRI</div>
+                    <div class="project-name">BRImo – Mobile Banking Super App</div>
+                    <div class="project-company">PT Bank Rakyat Indonesia (Persero) Tbk</div>
+                    <div class="project-period">Jan 2026 – Sekarang</div>
+                    <p class="project-desc">Pengujian komprehensif aplikasi mobile banking BRI (BRImo) yang melayani jutaan nasabah, mencakup fitur transfer, pembayaran tagihan, investasi, dan layanan perbankan digital lainnya.</p>
+                    <ul class="project-bullets">
+                        <li>Menyusun strategi test coverage untuk 50+ fitur baru per sprint</li>
+                        <li>Memimpin proses regression testing pasca setiap rilis hotfix</li>
+                        <li>Menurunkan escaped defect ke production hingga 40%</li>
+                        <li>Menjamin kepatuhan terhadap standar keamanan OJK & BI</li>
+                    </ul>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Jira</span>
+                        <span class="tech-tag">Katalon Studio</span>
+                        <span class="tech-tag">Postman</span>
+                        <span class="tech-tag">TestRail</span>
+                        <span class="tech-tag">Android/iOS</span>
+                        <span class="tech-tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-tag">Banking · BRI</div>
+                    <div class="project-name">QITA – Mobile Banking Super App</div>
+                    <div class="project-company">PT Bank Rakyat Indonesia (Persero) Tbk</div>
+                    <div class="project-period">Jan 2026 – Sekarang</div>
+                    <p class="project-desc">Pengujian komprehensif aplikasi mobile banking BRI (QITA) yang melayani jutaan nasabah, mencakup fitur transfer, pembayaran tagihan, investasi, dan layanan perbankan digital lainnya.</p>
+                    <ul class="project-bullets">
+                        <li>Menyusun strategi test coverage untuk 50+ fitur baru per sprint</li>
+                        <li>Memimpin proses regression testing pasca setiap rilis hotfix</li>
+                        <li>Menurunkan escaped defect ke production hingga 40%</li>
+                        <li>Menjamin kepatuhan terhadap standar keamanan OJK &amp; BI</li>
+                    </ul>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Jira</span>
+                        <span class="tech-tag">Katalon Studio</span>
+                        <span class="tech-tag">Postman</span>
+                        <span class="tech-tag">TestRail</span>
+                        <span class="tech-tag">Android/iOS</span>
+                        <span class="tech-tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-tag">Banking · Adi Data</div>
+                    <div class="project-name">Mandiri Cash Management Dili</div>
+                    <div class="project-company">PT Bank Mandiri (Persero) Tbk</div>
+                    <div class="project-period">Mei 2022 – September 2022</div>
+                    <p class="project-desc">Pengujian aplikasi Mandiri Cash Management Dili yang mendukung kebutuhan transaksi dan pengelolaan keuangan perusahaan, dengan fokus pada kualitas, keandalan, dan akurasi proses perbankan digital.</p>
+                    <ul class="project-bullets">
+                        <li>Menyusun dan menjalankan test case berdasarkan kebutuhan bisnis dan spesifikasi sistem</li>
+                        <li>Melakukan functional testing untuk memastikan setiap fitur berjalan sesuai requirement</li>
+                        <li>Melakukan regression testing untuk memvalidasi fungsionalitas setelah perubahan sistem</li>
+                        <li>Identifikasi, dokumentasi, dan pelaporan defect kepada tim developer</li>
+                        <li>Verifikasi hasil perbaikan defect sebelum aplikasi dirilis</li>
+                    </ul>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Manual Testing</span>
+                        <span class="tech-tag">Functional Testing</span>
+                        <span class="tech-tag">Regression Testing</span>
+                        <span class="tech-tag">Web App</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-tag">Banking · Adi Data</div>
+                    <div class="project-name">Mandiri Cash Management Singapore</div>
+                    <div class="project-company">PT Bank Mandiri (Persero) Tbk</div>
+                    <div class="project-period">Juni 2021 – Mei 2022</div>
+                    <p class="project-desc">Pengujian aplikasi Mandiri Cash Management Singapore yang mendukung layanan cash management bagi nasabah korporasi, dengan fokus pada validasi fungsionalitas dan keakuratan proses transaksi perbankan.</p>
+                    <ul class="project-bullets">
+                        <li>Menyiapkan test scenario dan test case berdasarkan requirement serta alur bisnis aplikasi</li>
+                        <li>Melaksanakan functional testing untuk memvalidasi fitur dan proses transaksi</li>
+                        <li>Melakukan negative testing untuk memastikan sistem menangani input tidak valid dengan tepat</li>
+                        <li>Mendokumentasikan hasil pengujian serta melaporkan defect menggunakan tools manajemen pengujian</li>
+                        <li>Berkolaborasi dengan tim developer dan stakeholder untuk memastikan defect terselesaikan</li>
+                    </ul>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Manual Testing</span>
+                        <span class="tech-tag">Functional Testing</span>
+                        <span class="tech-tag">Negative Testing</span>
+                        <span class="tech-tag">Web App</span>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+        <!-- ══════════ KEAHLIAN ══════════ -->
+        <div class="card">
+            <div class="section-title"><span class="icon">🛠️</span> Keahlian Teknis</div>
+            <div class="skills-grid">
+                <div>
+                    <div class="skill-group-title">QA & Testing</div>
+                    <div class="badge-group">
+                        <span class="badge qa">Manual Testing</span>
+                        <span class="badge qa">Test Automation</span>
+                        <span class="badge qa">Regression Testing</span>
+                        <span class="badge qa">UAT</span>
+                        <span class="badge qa">API Testing</span>
+                        <span class="badge qa">Performance Testing</span>
+                        <span class="badge qa">SDLC</span>
+                        <span class="badge qa">Agile/Scrum</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="skill-group-title">Tools & Platform</div>
+                    <div class="badge-group">
+                        <span class="badge">Katalon Studio</span>
+                        <span class="badge">Jira</span>
+                        <span class="badge">Postman</span>
+                        <span class="badge">SQL</span>
+                        <span class="badge">Git</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="skill-group-title">Domain</div>
+                    <div class="badge-group">
+                        <span class="badge">Perbankan Digital</span>
+                        <span class="badge">Mobile Apps</span>
+                        <span class="badge">Web Apps</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="skill-group-title">Bahasa</div>
+                    <div class="badge-group">
+                        <span class="badge">Bahasa Indonesia — Native</span>
+                        <span class="badge">Bahasa Inggris — Elementary</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════ PENDIDIKAN + SERTIFIKASI ══════════ -->
+        <div class="two-col">
+            <div class="card">
+                <div class="section-title"><span class="icon">🎓</span> Pendidikan</div>
+                <div class="edu-item">
+                    <div class="edu-icon">🏛️</div>
+                    <div>
+                        <div class="edu-name">Universitas Mercu Buana</div>
+                        <div class="edu-degree">S1 Teknik Informatika</div>
+                        <div class="edu-year">2015 – 2019</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-title"><span class="icon">🏆</span> Penghargaan</div>
+                <div class="award-banner">
+                    <div class="award-emoji">🥇</div>
+                    <div>
+                        <div class="award-title">Defect Finder Champion</div>
+                        <div class="award-sub">PT Bank Mandiri (Persero) Tbk · Maret 2022</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title"><span class="icon">📜</span> Sertifikasi</div>
+            <ul class="cert-list">
+                <li>
+                    <span class="cert-icon">🎖️</span>
+                    <div><strong>IHT ISTQB Certified Tester Foundation Level (CTFL)</strong><br>
+                    <small style="color:var(--text-muted)">International Software Testing Qualifications Board</small></div>
+                </li>
+                <li>
+                    <span class="cert-icon">🤖</span>
+                    <div><strong>Intensive Bootcamp QA Automation Katalon</strong><br>
+                    <small style="color:var(--text-muted)">Katalon Studio · Automation Testing</small></div>
+                </li>
+                <li>
+                    <span class="cert-icon">✅</span>
+                    <div><strong>Awareness Quality Assurance</strong><br>
+                    <small style="color:var(--text-muted)">Metodologi & Standar QA</small></div>
+                </li>
+                <li>
+                    <span class="cert-icon">📋</span>
+                    <div><strong>Awareness ISO 29119 – Software Testing Standard</strong><br>
+                    <small style="color:var(--text-muted)">Standar Internasional Pengujian Perangkat Lunak</small></div>
+                </li>
+                <li>
+                    <span class="cert-icon">✍️</span>
+                    <div><strong>Digital Copywriting</strong><br>
+                    <small style="color:var(--text-muted)">Digital Entrepreneurship Academy (DEA)</small></div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ══════════ FOOTER ══════════ -->
+        <div class="footer">
+            <p>© 2026 Desi Kusuma Thamrin · Quality Assurance Professional</p>
+            <p style="margin-top:4px; font-size:.78rem;">Jakarta, Indonesia · Dibuat dengan ❤️</p>
+        </div>
+
+    </div>
+
+    <!-- ══════════ DARK MODE SCRIPT ══════════ -->
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const html   = document.documentElement;
+
+        // Load saved preference
+        const saved = localStorage.getItem('theme') || 'light';
+        setTheme(saved);
+
+        toggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+
+        function setTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+            toggle.title = theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+            localStorage.setItem('theme', theme);
+        }
+    </script>
+
+</body>
+</html>
